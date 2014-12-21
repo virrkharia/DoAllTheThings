@@ -17,9 +17,20 @@ namespace Do_All_The_Things.Controllers
         private TodoContext db = new TodoContext();
 
         // GET api/Todo
-        public IEnumerable<TodoItem> GetTodoItems()
+        public IEnumerable<TodoItem> GetTodoItems(string q = null, string sort = null, bool desc = false, int? limit = null, int offset = 0)
         {
-            return db.TodoItems.AsEnumerable();
+			//return db.TodoItems.AsEnumerable();
+	        var list = ((IObjectContextAdapter) db).ObjectContext.CreateObjectSet<TodoItem>();
+
+	        IQueryable<TodoItem> items = string.IsNullOrEmpty(sort)
+		        ? list.OrderBy(o => o.Priority)
+		        : list.OrderBy(String.Format("it.{0} {1}", sort, desc ? "DESC" : "ASC"));
+
+	        if (!string.IsNullOrEmpty(q) && q != "undefined") items = items.Where(t => t.Todo.Contains(q));
+
+	        if (offset > 0) items = items.Skip(offset);
+	        if (limit.HasValue) items = items.Take(limit.Value);
+	        return items;
         }
 
         // GET api/Todo/5

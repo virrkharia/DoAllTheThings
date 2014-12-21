@@ -12,6 +12,10 @@ TodoApp.factory('Todo', function ($resource) {
 var ListCtrl = function ($scope, $location, Todo) {
 	$scope.appTitle = "Do All The Things";
 	$scope.appSlogan = "Making your life easier one task at a time";
-	$scope.items = Todo.query();
+	$scope.reset = function() {
+		$scope.items = Todo.query({ q: $scope.query });
+	};
+
+	$scope.reset();
 };
 
