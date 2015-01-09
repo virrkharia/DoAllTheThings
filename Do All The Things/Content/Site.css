@@ -548,9 +548,9 @@ th {
 
     th a:link, th a:visited, th a:active, th a:hover {
         color: #333;
-        font-weight: 600;
+        /*font-weight: 600;*/
         text-decoration: none;
-        padding: 0;
+        /*padding: 0;*/
     }
 
     th a:hover {
@@ -764,5 +764,3 @@ tr.pager td {
 	font-size: 14px;
 }
 
-#TodoTable {
-}

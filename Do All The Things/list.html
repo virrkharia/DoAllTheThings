@@ -3,23 +3,24 @@
 <form class="form-search">
 	<div class="input-append">
 		<input type="text" ng-model="query" class="input-medium search-query" placeholder="Search"/>
-		<button ng-click="reset()" type="submit" class="btn"><i class="icon-search"></i></button>
+		<button ng-click="reset()" type="submit" class="btn"><i class="ui-icon-search"></i></button>
+		<button ng-click="query=''; reset()" ng-disabled="!query" type="submit" class="btn">Reset</button>
 	</div>
-	<button ng-click="query=''; reset()" ng-disabled="!query" type="submit" class="btn">Reset</button>
 </form>
 <div id="TodoTable">
-<table class="table table-striped table-condensed table-hover">
-	<thead>
-		<th>Todo</th>
-		<th>Priority</th>
-		<th>Due</th>
-	</thead>
-	<tbody>
-		<tr ng-repeat="item in items">
-			<td>{{item.Todo}}</td>
-			<td>{{item.Priority}}</td>
-			<td>{{item.DueDate}}</td>
-		</tr>
-	</tbody>
-</table>
+	<table class="table table-striped table-condensed table-hover">
+		<thead>
+			<th sorted="Todo">Todo</th>
+			<th sorted="Priority">Priority</th>
+			<th sorted="DueDate">DueDate</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in items">
+				<td>{{item.Todo}}</td>
+				<td>{{item.Priority}}</td>
+				<td>{{item.DueDate | date:mediumDate}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<a ng-click="offset = offset + limit; search()" ng-show="has_more()">Show more</a>
 </div>
